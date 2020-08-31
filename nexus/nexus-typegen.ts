@@ -40,6 +40,13 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenRootTypes {
+  Leaderboard: { // root type
+    country: string; // String!
+    leaderboard_id: number; // Int!
+    name: string; // String!
+    profile_id: number; // Int!
+    rating: number; // Int!
+  }
   Match: { // root type
     leaderboard_id: number; // Int!
     match_id: string; // String!
@@ -51,6 +58,10 @@ export interface NexusGenRootTypes {
     name: string; // String!
     profile_id: number; // Int!
     rating?: number | null; // Int
+  }
+  Profile: { // root type
+    name: string; // String!
+    profile_id: number; // Int!
   }
   Query: {};
 }
@@ -66,6 +77,13 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Leaderboard: { // field return type
+    country: string; // String!
+    leaderboard_id: number; // Int!
+    name: string; // String!
+    profile_id: number; // Int!
+    rating: number; // Int!
+  }
   Match: { // field return type
     finished: NexusGenScalars['DateTime'] | null; // DateTime
     leaderboard_id: number; // Int!
@@ -84,9 +102,15 @@ export interface NexusGenFieldTypes {
     profile_id: number; // Int!
     rating: number | null; // Int
   }
+  Profile: { // field return type
+    leaderboard1v1: NexusGenRootTypes['Leaderboard'] | null; // Leaderboard
+    name: string; // String!
+    profile_id: number; // Int!
+  }
   Query: { // field return type
     match: NexusGenRootTypes['Match']; // Match!
     matches: NexusGenRootTypes['Match'][]; // [Match!]!
+    profile: NexusGenRootTypes['Profile']; // Profile!
     temp: NexusGenRootTypes['Match'][]; // [Match!]!
     temp2: NexusGenRootTypes['Match'][]; // [Match!]!
   }
@@ -103,6 +127,9 @@ export interface NexusGenArgTypes {
       profile_id?: number | null; // Int
       start: number; // Int!
     }
+    profile: { // args
+      profile_id?: number | null; // Int
+    }
   }
 }
 
@@ -111,7 +138,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Match" | "Mutation" | "Player" | "Query";
+export type NexusGenObjectNames = "Leaderboard" | "Match" | "Mutation" | "Player" | "Profile" | "Query";
 
 export type NexusGenInputNames = never;
 

@@ -7,6 +7,8 @@ import {Query} from "../../backend/queries";
 import {Match} from "../../backend/match";
 import {Player} from "../../backend/player";
 import {Mutation} from "../../backend/mutations";
+import {Leaderboard} from "../../backend/leaderboard";
+import {Profile} from "../../backend/profile";
 
 const cors = Cors({
   methods: ['GET', 'HEAD'],
@@ -32,10 +34,10 @@ export const schema = makeSchema({
   //     DateTime: DateTime
   //   }
   // })],
-  types: [Query, Match, Player, Mutation, GQLDate, GQLDateTime],
+  types: [Query, Mutation, GQLDate, GQLDateTime, Match, Player, Leaderboard, Profile],
   outputs: {
-    typegen: path.join(process.cwd(), 'pages', 'api', 'nexus-typegen.ts'),
-    schema: path.join(process.cwd(), 'pages', 'api', 'schema.graphql')
+    typegen: path.join(process.cwd(), 'nexus', 'nexus-typegen.ts'),
+    schema: path.join(process.cwd(), 'nexus', 'schema.graphql')
   },
 })
 

@@ -79,3 +79,58 @@ model player {
   @@id([match_id, profile_id])
   @@index([match_id], name: "IDX_58afd2c450f166eacbdf982841")
 }
+
+model user {
+  profile_id           Int     @id
+  steam_id             String?
+  name                 String
+  country              String?
+  clan                 String?
+  icon                 String?
+  wins                 Int?
+  drops                Int?
+  games                Int?
+  losses               Int?
+  rating               Int?
+  streak               Int?
+  last_match           Int?
+  lowest_streak        Int?
+  highest_rating       Int?
+  highest_streak       Int?
+  last_match_time      Int?
+  previous_rating      Int?
+  live_country         String?
+  live_clan            String?
+  live_wins            Int?
+  live_drops           Int?
+  live_games           Int?
+  live_rating          Int?
+  live_streak          Int?
+  live_last_match      Int?
+  live_last_match_time Int?
+}
+
+model leaderboard_row {
+  leaderboard_id  Int
+  rank            Int
+  profile_id      Int
+  steam_id        String?
+  name            String
+  country         String?
+  clan            String?
+  icon            String?
+  wins            Int?
+  drops           Int?
+  games           Int?
+  losses          Int?
+  rating          Int?
+  streak          Int?
+  last_match      Int?
+  lowest_streak   Int?
+  highest_rating  Int?
+  highest_streak  Int?
+  last_match_time Int?
+  previous_rating Int?
+
+  @@id([leaderboard_id, profile_id])
+}

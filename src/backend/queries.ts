@@ -15,6 +15,19 @@ export const Query = queryType({
       },
     })
 
+    t.field('profile', {
+      type: 'Profile',
+      args: {
+        profile_id: intArg({ nullable: true }),
+      },
+      resolve: async (_, args, ctx) => {
+        return {
+          profile_id: args.profile_id,
+          name: 'temp',
+        };
+      },
+    })
+
     t.list.field('matches', {
       type: 'Match',
       args: {

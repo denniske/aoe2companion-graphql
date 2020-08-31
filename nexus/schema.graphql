@@ -12,6 +12,14 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Leaderboard {
+  country: String!
+  leaderboard_id: Int!
+  name: String!
+  profile_id: Int!
+  rating: Int!
+}
+
 type Match {
   finished: DateTime
   leaderboard_id: Int!
@@ -33,9 +41,16 @@ type Player {
   rating: Int
 }
 
+type Profile {
+  leaderboard1v1: Leaderboard
+  name: String!
+  profile_id: Int!
+}
+
 type Query {
   match(matchId: String!): Match!
   matches(count: Int!, leaderboard_id: Int, profile_id: Int, start: Int!): [Match!]!
+  profile(profile_id: Int): Profile!
   temp: [Match!]!
   temp2: [Match!]!
 }
