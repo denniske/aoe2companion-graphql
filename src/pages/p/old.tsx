@@ -1,7 +1,7 @@
 import Router, { useRouter } from 'next/router'
 import { withApollo } from '../../../apollo/client'
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/client'
 
 const PostQuery = gql`
   query PostQuery($postId: String!) {

@@ -6,5 +6,6 @@ export const useAppStyles = makeStyles((theme) => ({
     },
     box: {
         padding: theme.spacing(3),
+        marginBottom: theme.spacing(3),
     },
 }));

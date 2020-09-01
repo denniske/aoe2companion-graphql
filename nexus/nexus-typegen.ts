@@ -138,6 +138,7 @@ export interface NexusGenFieldTypes {
     country: string; // String!
     drops: number | null; // Int
     games: number | null; // Int
+    last_match_time: NexusGenScalars['DateTime']; // DateTime!
     leaderboards: NexusGenRootTypes['Leaderboard'][]; // [Leaderboard!]!
     name: string; // String!
     profile_id: number; // Int!

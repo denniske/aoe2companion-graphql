@@ -47,6 +47,7 @@ type Profile {
   country: String!
   drops: Int
   games: Int
+  last_match_time: DateTime!
   leaderboards: [Leaderboard!]!
   name: String!
   profile_id: Int!

@@ -102,6 +102,7 @@ export const Profile = objectType({
     t.int('profile_id')
     t.string('name')
     t.string('country')
+    t.datetime('last_match_time', { resolve: (x: any) => fromUnixTime(x.last_match_time), nullable: false })
 
     t.field('games', {
       type: 'Int',

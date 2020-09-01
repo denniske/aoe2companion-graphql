@@ -1,9 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import {ApolloLink} from "@apollo/client";
+import {ApolloLink, ApolloProvider} from "@apollo/client";
 import {withScalars} from "apollo-link-scalars";
 import gql from "graphql-tag";
 import {GraphQLScalarType} from "graphql";
@@ -67,7 +66,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
         if (ssr) {
           try {
             // Run all GraphQL queries
-            const { getDataFromTree } = await import('@apollo/react-ssr')
+            const { getDataFromTree } = await import('@apollo/client/react/ssr')
             await getDataFromTree(
               <AppTree
                 pageProps={{
@@ -118,7 +117,7 @@ function initApolloClient(initialState) {
     apolloClient = createApolloClient(initialState)
   }
 
-  console.log(apolloClient);
+  // console.log(apolloClient);
   return apolloClient
 }
 
@@ -137,7 +136,6 @@ function createApolloClient(initialState = {}) {
   })
 }
 
-// we can also pass a custom map of functions. These will have priority over the GraphQLTypes parsing and serializing functions from the Schema.
 const typesMap = {
   DateTime: {
     serialize: (parsed) => parsed.toString(),
@@ -148,61 +146,21 @@ const typesMap = {
   }
 };
 
-const typeDefs = gql`
-"""
-A date string, such as 2007-12-03, compliant with the \`full-date\` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar Date
+const resolvers = {};
 
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the \`date-time\` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar DateTime
+const nexusSchemaTypeDefsStr = require('./temp')
+const typeDefs = gql`${nexusSchemaTypeDefsStr.text}`
 
-type Match {
-  leaderboard_id: Int!
-  match_id: String!
-  name: String!
-  players: [Player!]!
-  started: DateTime!
-  finished: DateTime
-}
-
-type Player {
-  match: Match!
-  match_id: String!
-  name: String!
-  profile_id: Int!
-  rating: Int!
-}
-
-type Query {
-  match(matchId: String!): Match!
-  matches(count: Int!, leaderboard_id: Int, profile_id: Int, start: Int!): [Match!]!
-}
-
-`;
-
-const resolvers = {
-  // example of scalar type, which will parse the string into a custom class CustomDate which receives a Date object
-  // Date: new GraphQLScalarType({
-  //   name: "Date",
-  //   serialize: (parsed) => parsed && parsed.toISOString(),
-  //   parseValue: (raw) => raw && new Date(raw),
-  //   parseLiteral(ast) {
-  //     if (ast.kind === Kind.STRING || ast.kind === Kind.INT) {
-  //       return new Date(ast.value);
-  //     }
-  //     return null;
-  //   }
-  // })
-};
+// console.log('typeDefs', typeDefs);
 
 // GraphQL Schema, required to use the link
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers
 });
+
+// console.log('schema', schema);
+
 
 function createIsomorphLink() {
   const { HttpLink } = require('apollo-link-http')

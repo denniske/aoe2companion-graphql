@@ -1,29 +1,47 @@
 import Router, { useRouter } from 'next/router'
 import { withApollo } from '../../../apollo/client'
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
 import {Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import {useAppStyles} from "../../components/app-styles";
+import {useQuery} from "@apollo/client";
+import {fromUnixTime} from "date-fns";
+import Rating from "../../components/rating";
 
-interface ILeaderboard {
+export interface ILeaderboard {
   leaderboard_id: number;
   rating: number;
   games: number;
   drops: number;
 }
 
-interface IProfile {
+export interface IRatingHistory {
+  leaderboard_id: number;
+  history: IRatingHistoryEntry[];
+}
+
+export interface IRatingHistoryEntry {
+  rating: number;
+  num_wins: number;
+  num_losses: number;
+  streak: number;
+  drops: number;
+  timestamp: Date;
+}
+
+export interface IProfile {
   profile_id: number;
   name: string;
   country: string;
   games: number;
   drops: number;
+  last_match_time: Date;
   leaderboards: ILeaderboard[];
+  rating_history: IRatingHistory[];
 }
 
-interface IProfileQuery {
+export interface IProfileQuery {
   profile: IProfile;
 }
 
@@ -32,6 +50,7 @@ const ProfileQuery = gql`
     profile(profile_id: $profileId) {
       profile_id
       name
+      last_match_time
       country
       games
       drops
@@ -102,27 +121,32 @@ function Post() {
   const appClasses = useAppStyles();
 
 
-  const [counter, setCounter] = React.useState(0);
-  React.useEffect(() => {
-    setCounter(1);
-  }, []);
+  // const [counter, setCounter] = React.useState(0);
+  // React.useEffect(() => {
+  //   setCounter(1);
+  // }, []);
 
   // if (!useHasMounted()) return null;
 
-  const profileId = useRouter().query.id;
+  const profileId = useRouter().query.id as string;
   // console.log('router query', useRouter());
 
   const { loading, error, data } = useQuery<IProfileQuery, any>(ProfileQuery, {
-    variables: { profileId: profileId },
-    // skip: profileId == null,
+    variables: { profileId: parseInt(profileId) },
+    skip: profileId == null,
     // fetchPolicy: 'no-cache',
+    // onCompleted: (data) => {
+    //   console.log('onCompleted', data);
+    // }
   })
 
 
   const profile = data?.profile;
 
-  console.log('PROFILE', profileId);
-  console.log('DATA', data);
+  // console.log('PROFILE', profileId);
+  // console.log('DATA', data);
+  // console.log('profile', data?.profile);
+  // console.log('last_match_time', data?.profile?.last_match_time);
 
   return (
     <div>
@@ -134,10 +158,9 @@ function Post() {
           {profileId}
         </Typography>
 
-        <p>loading: {loading}</p>
-        <p>error: {error?.message}</p>
-
-        <p>counter: {counter}</p>
+        {/*<p>loading: {loading}</p>*/}
+        {/*<p>error: {error?.message}</p>*/}
+        {/*<p>counter: {counter}</p>*/}
 
         {
           profile &&
@@ -150,6 +173,14 @@ function Post() {
             </p>
           </div>
         }
+      </Paper>
+      <Paper className={appClasses.box}>
+        <Typography variant="body1" noWrap>
+          Rating History
+        </Typography>
+        <div>
+          <Rating ratingHistories={profile?.rating_history}/>
+        </div>
       </Paper>
     </div>
   )
