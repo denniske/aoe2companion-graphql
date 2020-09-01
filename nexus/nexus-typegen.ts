@@ -41,25 +41,43 @@ export interface NexusGenScalars {
 
 export interface NexusGenRootTypes {
   Leaderboard: { // root type
+    clan?: string | null; // String
     country: string; // String!
     drops: number; // Int!
     games: number; // Int!
+    highest_rating: number; // Int!
+    highest_streak: number; // Int!
+    icon?: string | null; // String
+    last_match: string; // String!
     leaderboard_id: number; // Int!
+    losses: number; // Int!
+    lowest_streak: number; // Int!
     name: string; // String!
+    previous_rating: number; // Int!
     profile_id: number; // Int!
     rating: number; // Int!
+    steam_id: string; // String!
+    streak: number; // Int!
+    wins: number; // Int!
   }
   Match: { // root type
     leaderboard_id: number; // Int!
+    map_type: number; // Int!
     match_id: string; // String!
     name: string; // String!
   }
   Mutation: {};
   Player: { // root type
+    civ?: number | null; // Int
+    color?: number | null; // Int
     match_id: string; // String!
     name?: string | null; // String
     profile_id: number; // Int!
     rating?: number | null; // Int
+    slot: number; // Int!
+    slot_type: number; // Int!
+    team?: number | null; // Int
+    won?: boolean | null; // Boolean
   }
   Profile: { // root type
     country: string; // String!
@@ -108,17 +126,30 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 
 export interface NexusGenFieldTypes {
   Leaderboard: { // field return type
+    clan: string | null; // String
     country: string; // String!
     drops: number; // Int!
     games: number; // Int!
+    highest_rating: number; // Int!
+    highest_streak: number; // Int!
+    icon: string | null; // String
+    last_match: string; // String!
+    last_match_time: NexusGenScalars['DateTime']; // DateTime!
     leaderboard_id: number; // Int!
+    losses: number; // Int!
+    lowest_streak: number; // Int!
     name: string; // String!
+    previous_rating: number; // Int!
     profile_id: number; // Int!
     rating: number; // Int!
+    steam_id: string; // String!
+    streak: number; // Int!
+    wins: number; // Int!
   }
   Match: { // field return type
     finished: NexusGenScalars['DateTime'] | null; // DateTime
     leaderboard_id: number; // Int!
+    map_type: number; // Int!
     match_id: string; // String!
     name: string; // String!
     players: NexusGenRootTypes['Player'][]; // [Player!]!
@@ -128,11 +159,17 @@ export interface NexusGenFieldTypes {
     publish: number | null; // Int
   }
   Player: { // field return type
+    civ: number | null; // Int
+    color: number | null; // Int
     match: NexusGenRootTypes['Match']; // Match!
     match_id: string; // String!
     name: string | null; // String
     profile_id: number; // Int!
     rating: number | null; // Int
+    slot: number; // Int!
+    slot_type: number; // Int!
+    team: number | null; // Int
+    won: boolean | null; // Boolean
   }
   Profile: { // field return type
     country: string; // String!

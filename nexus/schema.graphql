@@ -13,18 +13,31 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Leaderboard {
+  clan: String
   country: String!
   drops: Int!
   games: Int!
+  highest_rating: Int!
+  highest_streak: Int!
+  icon: String
+  last_match: String!
+  last_match_time: DateTime!
   leaderboard_id: Int!
+  losses: Int!
+  lowest_streak: Int!
   name: String!
+  previous_rating: Int!
   profile_id: Int!
   rating: Int!
+  steam_id: String!
+  streak: Int!
+  wins: Int!
 }
 
 type Match {
   finished: DateTime
   leaderboard_id: Int!
+  map_type: Int!
   match_id: String!
   name: String!
   players: [Player!]!
@@ -36,11 +49,17 @@ type Mutation {
 }
 
 type Player {
+  civ: Int
+  color: Int
   match: Match!
   match_id: String!
   name: String
   profile_id: Int!
   rating: Int
+  slot: Int!
+  slot_type: Int!
+  team: Int
+  won: Boolean
 }
 
 type Profile {

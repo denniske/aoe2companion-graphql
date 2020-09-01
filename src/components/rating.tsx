@@ -1,16 +1,11 @@
 import React from 'react';
-import {isAfter, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory";
-import {IRatingHistoryEntry} from "../../util/api.types";
-import {merge} from "lodash";
 import {
     formatDateShort, formatLeaderboardId, getLeaderboardColor, getLeaderboardTextColor, parseUnixTimestamp
 } from "../helper/util";
 import {makeStyles} from "@material-ui/core/styles";
-import {IRatingHistory} from "../pages/p/[id]";
-import useComponentSize from "../hooks/use-component-size";
-import ContainerWidthSizer from "./container-width-sizer";
 import useDimensions from "../hooks/use-dimensions";
+import {IRatingHistory} from "../helper/types";
 
 interface IRatingProps {
     ratingHistories: IRatingHistory[];
@@ -74,7 +69,8 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     //     <VictoryZoomContainer key={'zoom'}/>
                                     // }
                                 >
-                                    <VictoryAxis crossAxis tickFormat={formatTick}/>
+                                    <VictoryAxis crossAxis tickFormat={formatTick} tickCount={width/60} />
+                                    {/*<VictoryAxis crossAxis />*/}
                                     <VictoryAxis dependentAxis crossAxis/>
                                     {
                                         ratingHistories?.map(ratingHistory => (

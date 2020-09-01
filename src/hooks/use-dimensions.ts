@@ -1,7 +1,7 @@
 import { useState, useCallback, useLayoutEffect } from "react";
 
 function getDimensionObject(node: HTMLElement): DimensionObject {
-    const rect = node.getBoundingClientRect();
+    const rect = node.getBoundingClientRect() as any;
 
     return {
         width: rect.width,

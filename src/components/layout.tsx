@@ -21,7 +21,7 @@ import {withApollo} from "../../apollo/client";
 import {Icon, InputBase, Paper} from "@material-ui/core";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrophy, faLandmark, faFistRaised, faFlask } from '@fortawesome/free-solid-svg-icons'
+import {faTrophy, faLandmark, faFistRaised, faFlask, faUser} from '@fortawesome/free-solid-svg-icons'
 
 import Link from "../components/link";
 
@@ -144,26 +144,33 @@ function Layout(props) {
             </div>
             <Divider />
             <List>
+                <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>
+                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faUser} className={classes.icon} /></div></ListItemIcon>
+                    <ListItemText primary="Me" />
+                </ListItem>
+            </List>
+            <Divider />
+            <List>
                 <ListItem button component={Link as any} href="/" naked>
                     <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faTrophy} className={classes.icon} /></div></ListItemIcon>
                     <ListItemText primary="Leaderboard" />
                 </ListItem>
             </List>
-            <Divider />
-            <List>
-                <ListItem button component={Link as any} href='/p/[id]' as={`/p/886872`} naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faLandmark} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Civs" />
-                </ListItem>
-                <ListItem button component={Link as any} href="/o/886872" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFistRaised} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Units" />
-                </ListItem>
-                <ListItem button component={Link as any} href="/about" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFlask} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Techs" />
-                </ListItem>
-            </List>
+            {/*<Divider />*/}
+            {/*<List>*/}
+            {/*    <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>*/}
+            {/*        <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faLandmark} className={classes.icon} /></div></ListItemIcon>*/}
+            {/*        <ListItemText primary="Civs" />*/}
+            {/*    </ListItem>*/}
+            {/*    <ListItem button component={Link as any} href="/o/886872" naked>*/}
+            {/*        <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFistRaised} className={classes.icon} /></div></ListItemIcon>*/}
+            {/*        <ListItemText primary="Units" />*/}
+            {/*    </ListItem>*/}
+            {/*    <ListItem button component={Link as any} href="/about" naked>*/}
+            {/*        <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFlask} className={classes.icon} /></div></ListItemIcon>*/}
+            {/*        <ListItemText primary="Techs" />*/}
+            {/*    </ListItem>*/}
+            {/*</List>*/}
         </div>
     );
 

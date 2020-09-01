@@ -8,6 +8,12 @@ export const Player = objectType({
     t.int('profile_id')
     t.string('name', {nullable: true})
     t.int('rating', {nullable: true})
+    t.int('civ', {nullable: true})
+    t.int('slot')
+    t.int('slot_type')
+    t.int('team', {nullable: true})
+    t.int('color', {nullable: true})
+    t.boolean('won', {nullable: true})
 
     t.field('match', {
       type: 'Match',

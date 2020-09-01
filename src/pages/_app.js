@@ -24,7 +24,10 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>My page</title>
+        <title>AoE II Companion</title>
+        <link rel="icon" type="image/png" href="/favicon-16x16.png?v=200706014637" sizes="16x16"/>
+        <link rel="icon" type="image/png" href="/favicon-32x32.png?v=200706014637" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="/favicon-96x96.png?v=200706014637" sizes="96x96"/>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>

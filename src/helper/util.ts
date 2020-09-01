@@ -1,4 +1,4 @@
-import {format, fromUnixTime} from "date-fns";
+import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import {enUS} from "date-fns/locale";
 
 export function parseUnixTimestamp(timestamp: number) {
@@ -9,6 +9,38 @@ export function formatDateShort(date: Date) {
     return format(date, 'MMM d', {locale: enUS});
 }
 
+export function formatAgo(date: Date) {
+    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true});
+}
+
+const playerColors = [
+    '#405BFF',
+    '#FF0000',
+    '#00FF00',
+    '#FFFF00',
+    '#00FFFF',
+    '#FF57B3',
+    '#797979',
+    '#FF9600',
+];
+
+export function getPlayerBackgroundColor(playerPosition: number) {
+    return playerColors[playerPosition - 1];
+}
+
+
+export const slotTypes = {
+    1: 'Player',
+    3: 'AI',
+    4: 'Closed',
+    5: 'Open',
+} as const;
+
+export type SlotType = keyof typeof slotTypes;
+
+export function getSlotTypeName(slotType: SlotType) {
+    return slotTypes[slotType] || slotType;
+}
 
 const leaderboardColors = [
     '#757476',

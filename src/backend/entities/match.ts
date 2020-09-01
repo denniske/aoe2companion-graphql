@@ -8,6 +8,7 @@ export const Match = objectType({
     t.string('match_id')
     t.string('name')
     t.int('leaderboard_id')
+    t.int('map_type')
     t.datetime('started', { resolve: (x: any) => fromUnixTime(x.started), nullable: false })
     t.datetime('finished', { resolve: (x: any) => x.finished ? fromUnixTime(x.finished) : null, nullable: true })
 
