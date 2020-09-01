@@ -1,6 +1,6 @@
 import {objectType} from "@nexus/schema";
 import {fromUnixTime} from "date-fns";
-import {prisma} from "./db";
+import {prisma} from "../db";
 
 export const Match = objectType({
   name: 'Match',

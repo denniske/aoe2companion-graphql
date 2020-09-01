@@ -21,10 +21,13 @@ export const Query = queryType({
         profile_id: intArg({ nullable: true }),
       },
       resolve: async (_, args, ctx) => {
-        return {
-          profile_id: args.profile_id,
-          name: 'temp',
-        };
+        return await prisma.user.findOne({
+          where: {profile_id: args.profile_id},
+        });
+        // return {
+        //   profile_id: args.profile_id,
+        //   name: 'temp',
+        // };
       },
     })
 

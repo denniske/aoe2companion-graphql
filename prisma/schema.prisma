@@ -87,32 +87,31 @@ model user {
   country              String?
   clan                 String?
   icon                 String?
-  wins                 Int?
-  drops                Int?
-  games                Int?
-  losses               Int?
-  rating               Int?
-  streak               Int?
+//  wins                 Int?
+//  drops                Int?
+//  games                Int?
+//  losses               Int?
+//  rating               Int?
+//  streak               Int?
   last_match           Int?
-  lowest_streak        Int?
-  highest_rating       Int?
-  highest_streak       Int?
+//  lowest_streak        Int?
+//  highest_rating       Int?
+//  highest_streak       Int?
   last_match_time      Int?
   previous_rating      Int?
-  live_country         String?
-  live_clan            String?
-  live_wins            Int?
-  live_drops           Int?
-  live_games           Int?
-  live_rating          Int?
-  live_streak          Int?
-  live_last_match      Int?
-  live_last_match_time Int?
+//  live_country         String?
+//  live_clan            String?
+//  live_wins            Int?
+//  live_drops           Int?
+//  live_games           Int?
+//  live_rating          Int?
+//  live_streak          Int?
+//  live_last_match      Int?
+//  live_last_match_time Int?
 }
 
 model leaderboard_row {
   leaderboard_id  Int
-  rank            Int
   profile_id      Int
   steam_id        String?
   name            String
@@ -133,4 +132,5 @@ model leaderboard_row {
   previous_rating Int?
 
   @@id([leaderboard_id, profile_id])
+  @@index([rating], name: "IDX_935515e6126c1a045608ca78b9")
 }

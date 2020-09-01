@@ -1,5 +1,5 @@
 import {objectType} from "@nexus/schema";
-import {prisma} from "./db";
+import {prisma} from "../db";
 
 export const Player = objectType({
   name: 'Player',

@@ -1,6 +1,6 @@
 import {objectType} from "@nexus/schema";
 import {fromUnixTime} from "date-fns";
-import {prisma} from "./db";
+import {prisma} from "../db";
 
 export const Leaderboard = objectType({
   name: 'Leaderboard',
@@ -10,5 +10,7 @@ export const Leaderboard = objectType({
     t.string('name')
     t.string('country')
     t.int('rating')
+    t.int('games')
+    t.int('drops')
   },
 })

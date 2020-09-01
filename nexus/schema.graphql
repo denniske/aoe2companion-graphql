@@ -14,6 +14,8 @@ scalar DateTime
 
 type Leaderboard {
   country: String!
+  drops: Int!
+  games: Int!
   leaderboard_id: Int!
   name: String!
   profile_id: Int!
@@ -42,9 +44,13 @@ type Player {
 }
 
 type Profile {
-  leaderboard1v1: Leaderboard
+  drops: Int
+  games: Int
+  leaderboards: [Leaderboard!]!
   name: String!
   profile_id: Int!
+  rating_history: [RatingHistory!]!
+  stats: [Stats!]!
 }
 
 type Query {
@@ -53,4 +59,36 @@ type Query {
   profile(profile_id: Int): Profile!
   temp: [Match!]!
   temp2: [Match!]!
+}
+
+type RatingHistory {
+  history: [RatingHistoryEntry!]!
+  leaderboard_id: Int!
+  profile_id: Int!
+}
+
+type RatingHistoryEntry {
+  drops: Int!
+  num_losses: Int!
+  num_wins: Int!
+  rating: Int!
+  streak: Int!
+  timestamp: DateTime!
+}
+
+type Stats {
+  allies: [StatsEntry!]!
+  civ: [StatsEntry!]!
+  leaderboard_id: Int!
+  map_type: [StatsEntry!]!
+  opponents: [StatsEntry!]!
+}
+
+type StatsEntry {
+  civ: Int
+  country: String
+  games: Int!
+  map_type: Int
+  name: String
+  wins: Int!
 }

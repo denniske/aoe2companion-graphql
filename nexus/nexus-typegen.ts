@@ -42,6 +42,8 @@ export interface NexusGenScalars {
 export interface NexusGenRootTypes {
   Leaderboard: { // root type
     country: string; // String!
+    drops: number; // Int!
+    games: number; // Int!
     leaderboard_id: number; // Int!
     name: string; // String!
     profile_id: number; // Int!
@@ -64,6 +66,33 @@ export interface NexusGenRootTypes {
     profile_id: number; // Int!
   }
   Query: {};
+  RatingHistory: { // root type
+    history: NexusGenRootTypes['RatingHistoryEntry'][]; // [RatingHistoryEntry!]!
+    leaderboard_id: number; // Int!
+    profile_id: number; // Int!
+  }
+  RatingHistoryEntry: { // root type
+    drops: number; // Int!
+    num_losses: number; // Int!
+    num_wins: number; // Int!
+    rating: number; // Int!
+    streak: number; // Int!
+  }
+  Stats: { // root type
+    allies: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    civ: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    leaderboard_id: number; // Int!
+    map_type: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    opponents: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+  }
+  StatsEntry: { // root type
+    civ?: number | null; // Int
+    country?: string | null; // String
+    games: number; // Int!
+    map_type?: number | null; // Int
+    name?: string | null; // String
+    wins: number; // Int!
+  }
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -79,6 +108,8 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 export interface NexusGenFieldTypes {
   Leaderboard: { // field return type
     country: string; // String!
+    drops: number; // Int!
+    games: number; // Int!
     leaderboard_id: number; // Int!
     name: string; // String!
     profile_id: number; // Int!
@@ -103,9 +134,13 @@ export interface NexusGenFieldTypes {
     rating: number | null; // Int
   }
   Profile: { // field return type
-    leaderboard1v1: NexusGenRootTypes['Leaderboard'] | null; // Leaderboard
+    drops: number | null; // Int
+    games: number | null; // Int
+    leaderboards: NexusGenRootTypes['Leaderboard'][]; // [Leaderboard!]!
     name: string; // String!
     profile_id: number; // Int!
+    rating_history: NexusGenRootTypes['RatingHistory'][]; // [RatingHistory!]!
+    stats: NexusGenRootTypes['Stats'][]; // [Stats!]!
   }
   Query: { // field return type
     match: NexusGenRootTypes['Match']; // Match!
@@ -113,6 +148,34 @@ export interface NexusGenFieldTypes {
     profile: NexusGenRootTypes['Profile']; // Profile!
     temp: NexusGenRootTypes['Match'][]; // [Match!]!
     temp2: NexusGenRootTypes['Match'][]; // [Match!]!
+  }
+  RatingHistory: { // field return type
+    history: NexusGenRootTypes['RatingHistoryEntry'][]; // [RatingHistoryEntry!]!
+    leaderboard_id: number; // Int!
+    profile_id: number; // Int!
+  }
+  RatingHistoryEntry: { // field return type
+    drops: number; // Int!
+    num_losses: number; // Int!
+    num_wins: number; // Int!
+    rating: number; // Int!
+    streak: number; // Int!
+    timestamp: NexusGenScalars['DateTime']; // DateTime!
+  }
+  Stats: { // field return type
+    allies: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    civ: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    leaderboard_id: number; // Int!
+    map_type: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+    opponents: NexusGenRootTypes['StatsEntry'][]; // [StatsEntry!]!
+  }
+  StatsEntry: { // field return type
+    civ: number | null; // Int
+    country: string | null; // String
+    games: number; // Int!
+    map_type: number | null; // Int
+    name: string | null; // String
+    wins: number; // Int!
   }
 }
 
@@ -138,7 +201,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Leaderboard" | "Match" | "Mutation" | "Player" | "Profile" | "Query";
+export type NexusGenObjectNames = "Leaderboard" | "Match" | "Mutation" | "Player" | "Profile" | "Query" | "RatingHistory" | "RatingHistoryEntry" | "Stats" | "StatsEntry";
 
 export type NexusGenInputNames = never;
 
