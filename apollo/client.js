@@ -118,6 +118,7 @@ function initApolloClient(initialState) {
     apolloClient = createApolloClient(initialState)
   }
 
+  console.log(apolloClient);
   return apolloClient
 }
 

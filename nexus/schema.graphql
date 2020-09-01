@@ -38,12 +38,13 @@ type Mutation {
 type Player {
   match: Match!
   match_id: String!
-  name: String!
+  name: String
   profile_id: Int!
   rating: Int
 }
 
 type Profile {
+  country: String!
   drops: Int
   games: Int
   leaderboards: [Leaderboard!]!

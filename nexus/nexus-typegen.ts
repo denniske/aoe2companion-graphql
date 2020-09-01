@@ -57,11 +57,12 @@ export interface NexusGenRootTypes {
   Mutation: {};
   Player: { // root type
     match_id: string; // String!
-    name: string; // String!
+    name?: string | null; // String
     profile_id: number; // Int!
     rating?: number | null; // Int
   }
   Profile: { // root type
+    country: string; // String!
     name: string; // String!
     profile_id: number; // Int!
   }
@@ -129,11 +130,12 @@ export interface NexusGenFieldTypes {
   Player: { // field return type
     match: NexusGenRootTypes['Match']; // Match!
     match_id: string; // String!
-    name: string; // String!
+    name: string | null; // String
     profile_id: number; // Int!
     rating: number | null; // Int
   }
   Profile: { // field return type
+    country: string; // String!
     drops: number | null; // Int
     games: number | null; // Int
     leaderboards: NexusGenRootTypes['Leaderboard'][]; // [Leaderboard!]!

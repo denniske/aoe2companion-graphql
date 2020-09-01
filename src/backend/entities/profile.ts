@@ -101,6 +101,7 @@ export const Profile = objectType({
   definition(t) {
     t.int('profile_id')
     t.string('name')
+    t.string('country')
 
     t.field('games', {
       type: 'Int',

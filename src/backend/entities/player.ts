@@ -6,7 +6,7 @@ export const Player = objectType({
   definition(t) {
     t.string('match_id')
     t.int('profile_id')
-    t.string('name')
+    t.string('name', {nullable: true})
     t.int('rating', {nullable: true})
 
     t.field('match', {
