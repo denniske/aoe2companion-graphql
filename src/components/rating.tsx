@@ -69,7 +69,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     //     <VictoryZoomContainer key={'zoom'}/>
                                     // }
                                 >
-                                    <VictoryAxis crossAxis tickFormat={formatTick} tickCount={width/60} />
+                                    <VictoryAxis crossAxis tickFormat={formatTick} tickCount={width ? Math.round(width/60) : 100} />
                                     {/*<VictoryAxis crossAxis />*/}
                                     <VictoryAxis dependentAxis crossAxis/>
                                     {

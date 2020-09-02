@@ -35,6 +35,7 @@ export interface IStatsEntry {
     name?: string;
     games: number;
     wins: number;
+    country?: string;
 }
 
 export interface IRatingHistory {

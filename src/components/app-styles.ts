@@ -8,5 +8,11 @@ export const useAppStyles = makeStyles((theme) => ({
         maxWidth: 800,
         padding: theme.spacing(3),
         marginBottom: theme.spacing(3),
+        // marginRight: theme.spacing(3),
+    },
+    boxForTable: {
+        maxWidth: 800,
+        marginBottom: theme.spacing(3),
+        // marginRight: theme.spacing(3),
     },
 }));

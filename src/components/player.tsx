@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
     },
     playerWonCol: {
-        marginLeft: 3,
+        marginLeft: 5,
         width: 22,
     },
     playerRatingCol: {
@@ -103,6 +103,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(0.5),
     },
     rowLink2: {
+        '&:hover': {
+            background: "#EEE",
+            // fontWeight: 'bold',
+            // textDecoration: 'underline',
+        },
         // backgroundColor: 'green',
         cursor: 'pointer',
         display: 'flex',

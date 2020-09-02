@@ -111,5 +111,6 @@ type StatsEntry {
   games: Int!
   map_type: Int
   name: String
+  profile_id: Int
   wins: Int!
 }

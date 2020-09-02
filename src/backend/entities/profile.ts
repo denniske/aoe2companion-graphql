@@ -19,7 +19,7 @@ async function getLeaderboard(leaderboardId: number, profileId: number) {
 async function getRatingHistory(leaderboardId: number, profileId: number) {
     let players = await prisma.player.findMany({
         include: {
-            match: { select: { finished: true } },
+            match: { select: { finished: true, started: true } },
         },
         where: {profile_id: profileId, match: { leaderboard_id: leaderboardId }},
     });
@@ -34,7 +34,7 @@ async function getRatingHistory(leaderboardId: number, profileId: number) {
             num_losses: player.games - player.wins,
             streak: player.streak,
             drops: player.drops,
-            timestamp: player.match.finished,
+            timestamp: player.match.finished || player.match.started,
         }))
     };
 }
@@ -48,22 +48,22 @@ async function getStats(leaderboardId: number, profileId: number) {
     // console.log('match', match);
 
     const allies = await prisma.$queryRaw`
-        SELECT p2.name, COUNT(*) as games, COUNT(*) filter (where p.won) as wins
+        SELECT p2.profile_id, p2.name, p2.country, COUNT(*) as games, COUNT(*) filter (where p.won) as wins
         FROM player as p
         JOIN player as p2 ON p2.match_id = p.match_id AND p2.profile_id != p.profile_id AND p2.team = p.team AND p2.team is not null AND p.team is not null
         JOIN match as m ON m.match_id = p.match_id
         WHERE p.profile_id=${profileId} AND m.leaderboard_id=${leaderboardId} -- AND p.team != -1
-        GROUP BY p2.name
+        GROUP BY p2.profile_id, p2.name, p2.country
         ORDER BY games desc;
     `;
 
     const opponents = await prisma.$queryRaw`
-        SELECT p2.name, COUNT(*) as games, COUNT(*) filter (where p.won) as wins
+        SELECT p2.profile_id, p2.name, p2.country, COUNT(*) as games, COUNT(*) filter (where p.won) as wins
         FROM player as p
         JOIN player as p2 ON p2.match_id = p.match_id AND p2.profile_id != p.profile_id AND p2.team != p.team AND p2.team is not null AND p.team is not null
         JOIN match as m ON m.match_id = p.match_id
         WHERE p.profile_id=${profileId} AND m.leaderboard_id=${leaderboardId} -- AND p.team != -1
-        GROUP BY p2.name
+        GROUP BY p2.profile_id, p2.name, p2.country
         ORDER BY games desc;
     `;
 

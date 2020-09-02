@@ -18,6 +18,7 @@ export const StatsEntry = objectType({
   definition(t) {
     t.int('civ', {nullable: true})
     t.int('map_type', {nullable: true})
+    t.int('profile_id', {nullable: true})
     t.string('name', {nullable: true})
     t.string('country', {nullable: true})
     t.int('games')

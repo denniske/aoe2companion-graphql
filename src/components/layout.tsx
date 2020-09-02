@@ -144,7 +144,8 @@ function Layout(props) {
             </div>
             <Divider />
             <List>
-                <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>
+                {/*<ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>*/}
+                <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/251265`} naked>
                     <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faUser} className={classes.icon} /></div></ListItemIcon>
                     <ListItemText primary="Me" />
                 </ListItem>

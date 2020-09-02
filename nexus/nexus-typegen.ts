@@ -110,6 +110,7 @@ export interface NexusGenRootTypes {
     games: number; // Int!
     map_type?: number | null; // Int
     name?: string | null; // String
+    profile_id?: number | null; // Int
     wins: number; // Int!
   }
 }
@@ -215,6 +216,7 @@ export interface NexusGenFieldTypes {
     games: number; // Int!
     map_type: number | null; // Int
     name: string | null; // String
+    profile_id: number | null; // Int
     wins: number; // Int!
   }
 }
