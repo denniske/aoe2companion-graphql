@@ -24,7 +24,7 @@ async function getRatingHistory(leaderboardId: number, profileId: number) {
         where: {profile_id: profileId, match: { leaderboard_id: leaderboardId }},
     });
     if (players.length === 0) return null;
-    players = orderBy(players, p => p.match.finished, 'desc');
+    players = orderBy(players, p => p.match.started, 'desc');
     return {
         leaderboard_id: leaderboardId,
         profile_id: profileId,
@@ -34,7 +34,7 @@ async function getRatingHistory(leaderboardId: number, profileId: number) {
             num_losses: player.games - player.wins,
             streak: player.streak,
             drops: player.drops,
-            timestamp: player.match.finished || player.match.started,
+            timestamp: player.match.started, // player.match.finished ||
         }))
     };
 }
@@ -151,7 +151,7 @@ export const Profile = objectType({
     t.list.field('stats', {
       type: 'Stats',
       resolve: async parent => {
-          const leaderboardIds = [3];
+          const leaderboardIds = [4];
           let ratingHistories = await Promise.all(leaderboardIds.map(leaderboardId => getStats(leaderboardId, parent.profile_id)));
           ratingHistories = ratingHistories.filter(board => board != null);
           return ratingHistories;

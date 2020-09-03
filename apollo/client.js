@@ -148,8 +148,8 @@ const typesMap = {
 
 const resolvers = {};
 
-const nexusSchemaTypeDefsStr = require('./temp')
-const typeDefs = gql`${nexusSchemaTypeDefsStr.text}`
+const nexusSchemaTypeDefsStr = require('../nexus/schema')["nexus/schema.graphql"].content
+const typeDefs = gql`${nexusSchemaTypeDefsStr}`
 
 // console.log('typeDefs', typeDefs);
 

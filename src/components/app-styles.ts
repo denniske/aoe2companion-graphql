@@ -5,6 +5,7 @@ export const useAppStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     box: {
+        overflow: 'hidden',
         maxWidth: 800,
         padding: theme.spacing(3),
         marginBottom: theme.spacing(3),

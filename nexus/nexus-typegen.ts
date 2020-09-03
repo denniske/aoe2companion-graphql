@@ -66,6 +66,10 @@ export interface NexusGenRootTypes {
     match_id: string; // String!
     name: string; // String!
   }
+  MatchList: { // root type
+    matches: NexusGenRootTypes['Match'][]; // [Match!]!
+    total: number; // Int!
+  }
   Mutation: {};
   Player: { // root type
     civ?: number | null; // Int
@@ -156,6 +160,10 @@ export interface NexusGenFieldTypes {
     players: NexusGenRootTypes['Player'][]; // [Player!]!
     started: NexusGenScalars['DateTime']; // DateTime!
   }
+  MatchList: { // field return type
+    matches: NexusGenRootTypes['Match'][]; // [Match!]!
+    total: number; // Int!
+  }
   Mutation: { // field return type
     publish: number | null; // Int
   }
@@ -185,7 +193,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     match: NexusGenRootTypes['Match']; // Match!
-    matches: NexusGenRootTypes['Match'][]; // [Match!]!
+    matches: NexusGenRootTypes['MatchList']; // MatchList!
     profile: NexusGenRootTypes['Profile']; // Profile!
     temp: NexusGenRootTypes['Match'][]; // [Match!]!
     temp2: NexusGenRootTypes['Match'][]; // [Match!]!
@@ -230,6 +238,7 @@ export interface NexusGenArgTypes {
       count: number; // Int!
       leaderboard_id?: number | null; // Int
       profile_id?: number | null; // Int
+      search?: string | null; // String
       start: number; // Int!
     }
     profile: { // args
@@ -243,7 +252,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Leaderboard" | "Match" | "Mutation" | "Player" | "Profile" | "Query" | "RatingHistory" | "RatingHistoryEntry" | "Stats" | "StatsEntry";
+export type NexusGenObjectNames = "Leaderboard" | "Match" | "MatchList" | "Mutation" | "Player" | "Profile" | "Query" | "RatingHistory" | "RatingHistoryEntry" | "Stats" | "StatsEntry";
 
 export type NexusGenInputNames = never;
 

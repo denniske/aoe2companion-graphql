@@ -6,19 +6,15 @@ function getDimensionObject(node: HTMLElement): DimensionObject {
     return {
         width: rect.width,
         height: rect.height,
-        top: "x" in rect ? rect.x : rect.top,
-        left: "y" in rect ? rect.y : rect.left,
-        x: "x" in rect ? rect.x : rect.left,
-        y: "y" in rect ? rect.y : rect.top,
+        left: "x" in rect ? rect.x : rect.left,
+        top: "y" in rect ? rect.y : rect.top,
         right: rect.right,
         bottom: rect.bottom
     };
 }
 
-function useDimensions({
-                           liveMeasure = true
-                       }: UseDimensionsArgs = {}): UseDimensionsHook {
-    const [dimensions, setDimensions] = useState({} as any);
+function useDimensions({ liveMeasure = true }: UseDimensionsArgs = {}): UseDimensionsHook {
+    const [dimensions, setDimensions] = useState<DimensionObject>({} as any);
     const [node, setNode] = useState(null);
 
     const ref = useCallback(node => {
@@ -27,19 +23,32 @@ function useDimensions({
 
     useLayoutEffect(() => {
         if (node) {
-            const measure = () =>
-                window.requestAnimationFrame(() =>
-                    setDimensions(getDimensionObject(node))
-                );
+            const measure = () => {
+                return window.requestAnimationFrame(() => {
+                    setDimensions(oldDimensions => {
+                        const newDimensions = getDimensionObject(node);
+                        if (
+                            oldDimensions.width === newDimensions.width &&
+                            oldDimensions.height === newDimensions.height &&
+                            oldDimensions.left === newDimensions.left &&
+                            oldDimensions.top === newDimensions.top &&
+                            oldDimensions.right === newDimensions.right &&
+                            oldDimensions.bottom === newDimensions.bottom
+                        ) return oldDimensions;
+                        return newDimensions;
+                    });
+                });
+            };
+
             measure();
 
             if (liveMeasure) {
                 window.addEventListener("resize", measure);
-                window.addEventListener("scroll", measure);
+                // window.addEventListener("scroll", measure);
 
                 return () => {
                     window.removeEventListener("resize", measure);
-                    window.removeEventListener("scroll", measure);
+                    // window.removeEventListener("scroll", measure);
                 };
             }
         }
@@ -53,15 +62,13 @@ export interface DimensionObject {
     height: number;
     top: number;
     left: number;
-    x: number;
-    y: number;
     right: number;
     bottom: number;
 }
 
 export type UseDimensionsHook = [
     (node: HTMLElement) => void,
-        DimensionObject,
+    DimensionObject,
     HTMLElement
 ];
 

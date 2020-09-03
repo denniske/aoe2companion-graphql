@@ -4,17 +4,17 @@ import {ApolloServer} from 'apollo-server-micro'
 import path from 'path'
 import Cors from 'cors'
 import {Query} from "../../backend/queries";
-import {Match} from "../../backend/entities/match";
+import {Match, MatchList} from "../../backend/entities/match";
 import {Player} from "../../backend/entities/player";
 import {Mutation} from "../../backend/mutations";
 import {Leaderboard} from "../../backend/entities/leaderboard";
 import {Profile} from "../../backend/entities/profile";
-import {
-  BaseContext, GraphQLRequestContext, GraphQLRequestContextExecutionDidStart, GraphQLRequestContextResponseForOperation,
-  GraphQLRequestContextWillSendResponse
-} from "apollo-server-types";
-import {GraphQLRequestListener} from "apollo-server-plugin-base/src/index";
-import {ApolloServerPlugin} from "apollo-server-plugin-base";
+// import {
+//   BaseContext, GraphQLRequestContext, GraphQLRequestContextExecutionDidStart, GraphQLRequestContextResponseForOperation,
+//   GraphQLRequestContextWillSendResponse
+// } from "apollo-server-types";
+// import {GraphQLRequestListener} from "apollo-server-plugin-base/src/index";
+// import {ApolloServerPlugin} from "apollo-server-plugin-base";
 import {RatingHistory, RatingHistoryEntry} from "../../backend/entities/rating-history";
 import {Stats, StatsEntry} from "../../backend/entities/stats";
 
@@ -42,7 +42,7 @@ export const schema = makeSchema({
   //     DateTime: DateTime
   //   }
   // })],
-  types: [Query, Mutation, GQLDate, GQLDateTime, Match, Player, Leaderboard, Profile, RatingHistory, RatingHistoryEntry, Stats, StatsEntry],
+  types: [Query, Mutation, GQLDate, GQLDateTime, Match, MatchList, Player, Leaderboard, Profile, RatingHistory, RatingHistoryEntry, Stats, StatsEntry],
   outputs: {
     typegen: path.join(process.cwd(), 'nexus', 'nexus-typegen.ts'),
     schema: path.join(process.cwd(), 'nexus', 'schema.graphql')
@@ -55,43 +55,43 @@ export const config = {
   },
 };
 
-class BasicLogging implements ApolloServerPlugin {
-  requestDidStart?(requestContext: GraphQLRequestContext<BaseContext>) {
-    const operationName = requestContext.request.operationName;
-    if (operationName === 'IntrospectionQuery') return;
-    return new BasicLoggingListener();
-  }
-}
-
-class BasicLoggingListener implements GraphQLRequestListener {
-
-   willSendResponse(requestContext: GraphQLRequestContextWillSendResponse<BaseContext>) {
-     const tracing = requestContext.response.extensions?.['tracing'];
-     if (tracing == null) return;
-     const durationNs = tracing.duration;
-     const durationMs = durationNs / 1000 / 1000;
-     const operationName = requestContext.request.operationName;
-     console.log();
-     console.log(operationName);
-     console.log(durationMs + 'ms');
-  }
-
-  [key: string]: import("apollo-server-types").AnyFunction
-
-  // didResolveSource?(requestContext: GraphQLRequestContextDidResolveSource<BaseContext>) {}
-  // parsingDidStart?(requestContext: GraphQLRequestContextParsingDidStart<BaseContext>) {}
-  // validationDidStart?(requestContext: GraphQLRequestContextValidationDidStart<BaseContext>) {}
-  // didResolveOperation?(requestContext: GraphQLRequestContextDidResolveOperation<BaseContext>) {}
-  // didEncounterErrors?(requestContext: GraphQLRequestContextDidEncounterErrors<BaseContext>) {}
-
-  responseForOperation(requestContext: GraphQLRequestContextResponseForOperation<BaseContext>) { return null; }
-  executionDidStart(requestContext: GraphQLRequestContextExecutionDidStart<BaseContext>) {}
-}
+// class BasicLogging implements ApolloServerPlugin {
+//   requestDidStart?(requestContext: GraphQLRequestContext<BaseContext>) {
+//     const operationName = requestContext.request.operationName;
+//     if (operationName === 'IntrospectionQuery') return;
+//     return new BasicLoggingListener();
+//   }
+// }
+//
+// class BasicLoggingListener implements GraphQLRequestListener {
+//
+//    willSendResponse(requestContext: GraphQLRequestContextWillSendResponse<BaseContext>) {
+//      const tracing = requestContext.response.extensions?.['tracing'];
+//      if (tracing == null) return;
+//      const durationNs = tracing.duration;
+//      const durationMs = durationNs / 1000 / 1000;
+//      const operationName = requestContext.request.operationName;
+//      console.log();
+//      console.log(operationName);
+//      console.log(durationMs + 'ms');
+//   }
+//
+//   [key: string]: import("apollo-server-types").AnyFunction
+//
+//   // didResolveSource?(requestContext: GraphQLRequestContextDidResolveSource<BaseContext>) {}
+//   // parsingDidStart?(requestContext: GraphQLRequestContextParsingDidStart<BaseContext>) {}
+//   // validationDidStart?(requestContext: GraphQLRequestContextValidationDidStart<BaseContext>) {}
+//   // didResolveOperation?(requestContext: GraphQLRequestContextDidResolveOperation<BaseContext>) {}
+//   // didEncounterErrors?(requestContext: GraphQLRequestContextDidEncounterErrors<BaseContext>) {}
+//
+//   responseForOperation(requestContext: GraphQLRequestContextResponseForOperation<BaseContext>) { return null; }
+//   executionDidStart(requestContext: GraphQLRequestContextExecutionDidStart<BaseContext>) {}
+// }
 
 const handler2 = new ApolloServer({
   schema,
   tracing: true,
-  plugins: [() => new BasicLogging()],
+  // plugins: [() => new BasicLogging()],
   // engine: {
   //   reportSchema: true,
   //   graphVariant: 'current',

@@ -23,3 +23,11 @@ export const Match = objectType({
     })
   },
 })
+
+export const MatchList = objectType({
+  name: 'MatchList',
+  definition(t) {
+    t.int('total')
+    t.list.field('matches', { type: 'Match'})
+  },
+})

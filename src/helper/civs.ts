@@ -42,5 +42,5 @@ export function getCivName(civ: number) {
 }
 
 export function getCivIconByIndex(civ: number) {
-    return '/civilizations/' + getCivName(civ) + '.png';
+    return '/civilizations/' + getCivName(civ).toLowerCase() + '.png';
 }
