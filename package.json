@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "next build",
+    "build": "npm -s run generate && next build",
     "start": "next -p 4000",
     "start:prod": "next start -p 4000",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
