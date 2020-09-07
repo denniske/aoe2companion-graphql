@@ -167,7 +167,7 @@ function createIsomorphLink() {
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({
-      uri: 'http://localhost:4000/api',
+      uri: '/api',
       credentials: 'same-origin',
     })
   ]);
