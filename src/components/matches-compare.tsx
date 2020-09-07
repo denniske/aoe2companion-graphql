@@ -1,49 +1,13 @@
-import {useQuery} from "@apollo/client";
 import React from "react";
-import {fade, InputBase, Paper} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import {fade, Paper} from "@material-ui/core";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
-import Match from "./match";
 import {useAppStyles} from "./app-styles";
 import {makeStyles} from "@material-ui/core/styles";
-import gql from "graphql-tag";
 import {IMatch} from "../../util/api.types";
-import {maps} from "../helper/maps";
+import {formatDayAndTime, parseUnixTimestamp} from "../helper/util";
+import {orderBy} from "lodash";
 
-
-const MatchesQuery = gql`
-    query MatchesQuery($profileId: Int!, $leaderboardId: Int!, $search: String) {
-        matches(
-            start: 0,
-            count: 5,
-            profile_id: $profileId,
-            leaderboard_id: $leaderboardId
-            search: $search
-        ) {
-            total
-            matches {
-                match_id
-                leaderboard_id
-                name
-                map_type
-                started
-                finished
-                players {
-                    profile_id
-                    name
-                    rating
-                    civ
-                    slot
-                    slot_type
-                    color
-                    won
-                    team
-                }
-            }
-        }
-    }
-`
 
 interface IMatchList {
     total: number;
@@ -58,37 +22,42 @@ interface Props {
     profileId: string;
 }
 
-export default function ProfileMatches({profileId}: Props) {
+export default function MatchesCompare(props: any) {
     const appClasses = useAppStyles();
     const classes = useStyles();
-
-    const [text, setText] = React.useState('');
     const [leaderboardId, setLeaderboardId] = React.useState('3');
 
-    const matchesResult = useQuery<IMatchesQuery, any>(MatchesQuery, {
-        variables: {
-            profileId: parseInt(profileId),
-            leaderboardId: parseInt(leaderboardId),
-            search: text,
-            map_types: Object.entries(maps).filter(([map_type, name]) => name.toLowerCase().indexOf(text.toLowerCase()) >= 0).map(([map_type, name]) => map_type),
-        },
-        skip: profileId == null,
-        fetchPolicy: 'network-only',
-    })
+    // const matches = require('../matches');
+    // console.log('matches.length', matches.length);
 
-    const total = matchesResult.data?.matches.total;
-    const matches = matchesResult.data?.matches.matches;
+    const leader = 0;
 
-    // console.log('total', total);
-    // console.log('matches', matches);
+    let merged = [
+        // ...ratingsAoe2Net0.map(rating => ({
+        //     type: 'rating',
+        //     timestamp: rating.timestamp,
+        //     rating: rating.rating,
+        // })),
+        // ...matchesAoe2Net.filter(m => m.leaderboard_id === leader).map(match => ({
+        //     type: 'match',
+        //     match_id: match.match_id,
+        //     timestamp: match.started,
+        //     rating: match.players.filter(p => p.profile_id === 251265)[0].rating,
+        //     rating_change: match.players.filter(p => p.profile_id === 251265)[0].rating_change,
+        //     won: match.players.filter(p => p.profile_id === 251265)[0].won,
+        // })),
+    ];
+
+    // console.log('matches.length', matchesAoe2Net.filter(m => m.leaderboard_id === leader).length);
+    // console.log('matches.rating_change = null', merged.filter(m => m.type == 'match').filter(m => m.rating_change == null).length);
+    // console.log('matches.rating = null', merged.filter(m => m.type == 'match').filter(m => m.rating == null).length);
+    // console.log('matches.won = null', merged.filter(m => m.type == 'match').filter(m => m.won == null).length);
+    // console.log('matches.won = null', merged.filter(m => m.type == 'match').filter(m => m.won == null)[0]);
+
+    merged = orderBy(merged, m => m.timestamp, 'desc');
 
     return (
         <Paper className={appClasses.box}>
-            <div className={classes.row2}>
-                <Typography variant="body1" noWrap>
-                    Matches {matchesResult.loading ? 'loading' : 'ready'}
-                </Typography>
-            </div>
 
             <div className={classes.row3}>
                 <ToggleButtonGroup value={leaderboardId} exclusive onChange={(e, v) => setLeaderboardId(v)} size="small">
@@ -110,30 +79,33 @@ export default function ProfileMatches({profileId}: Props) {
                 </ToggleButtonGroup>
             </div>
 
-            <Paper className={classes.searchRow}>
-                {/*<div className={classes.searchIcon}>*/}
-                {/*  <SearchIcon/>*/}
-                {/*</div>*/}
-                <InputBase
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Search by name, map, player…"
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{'aria-label': 'search'}}
-                />
-            </Paper>
+            {
+                merged.map(merge => (
+                    <>
+                    {
+                        merge.type === 'rating' &&
+                        <div>
+                            <p>{formatDayAndTime(parseUnixTimestamp(merge.timestamp))} {merge.rating}</p>
+                        </div>
+                    }
+                    {
+                        merge.type === 'match' &&
+                        <div>
+                            <p>{formatDayAndTime(parseUnixTimestamp(merge.timestamp))} {merge.rating || '???'} Match</p>
+                        </div>
+                    }
+                    </>
+                ))
+            }
 
-            <div style={{opacity: matchesResult.loading ? 0.7 : 1}}>
-                <div className={classes.row3}>
-                    {total} matches
-                </div>
-                <div>
-                    {matches?.map(match => <Match key={match.match_id} match={match}/>)}
-                </div>
-            </div>
+            {/*<div style={{opacity: matchesResult.loading ? 0.7 : 1}}>*/}
+            {/*    <div className={classes.row3}>*/}
+            {/*        {total} matches*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        {matches?.map(match => <Match key={match.match_id} match={match}/>)}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </Paper>
     );
 }

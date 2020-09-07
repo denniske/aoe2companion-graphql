@@ -36,8 +36,15 @@ export default function Match({ match }: Props) {
     return (
         <div className={classes.col2}>
             <div className={classes.row2b}>
-                {getMapName(match.map_type)} ({getString('leaderboard', match.leaderboard_id)}) {match.name}
+                {getMapName(match.map_type)}
+                {/*({getString('leaderboard', match.leaderboard_id)})*/}
             </div>
+            {/*<div className={classes.row2b}>*/}
+            {/*    {getMapName(match.map_type)}*/}
+            {/*</div>*/}
+            {/*<div className={classes.row2b} style={{fontSize: 12}}>*/}
+            {/*    {getString('leaderboard', match.leaderboard_id)}*/}
+            {/*</div>*/}
             <div className={classes.row2}>
                 {
                     !match.finished &&

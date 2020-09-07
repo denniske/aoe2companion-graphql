@@ -24,6 +24,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ProfileMatches from "../../components/profile-matches";
+import MatchesCompare from "../../components/matches-compare";
 
 
 const ProfileQuery = gql`
@@ -161,6 +162,7 @@ function ProfilePage() {
               </div>
             }
           </Paper>
+          {/*<MatchesCompare />*/}
 
           <TableContainer component={Paper} className={classes.tableContainer}>
             <Table>
