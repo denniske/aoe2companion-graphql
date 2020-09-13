@@ -13,5 +13,5 @@ COPY . /usr/src/app
 
 # Building app
 RUN npm run build
-EXPOSE 4000
-CMD npm run start:prod:4000
+EXPOSE 80
+CMD npm run start:prod:80
