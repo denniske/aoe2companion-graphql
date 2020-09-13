@@ -15,7 +15,7 @@ services:
 
   # your application, listening on port specified in `SITES` env variable
   graphql:
-    image: denniske/aoe2companion-graphql:latest
+    image: denniske/aoe2companion-graphql:$COMMIT_SHA1
     restart: on-failure
     ports:
       - 1000:80

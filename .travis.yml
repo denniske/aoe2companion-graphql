@@ -31,6 +31,6 @@ jobs:
         - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
         - chmod 600 ~/.ssh/id_rsa
+        - bash ./deploy.sh
         - scp docker-compose.yml root@116.203.245.222:/root
-        - ssh root@116.203.245.222 ls -al
-        - ssh root@116.203.245.222 docker-compose restart
+        - ssh root@116.203.245.222 docker-compose up -d
