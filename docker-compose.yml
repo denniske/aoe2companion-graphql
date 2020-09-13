@@ -18,7 +18,7 @@ services:
     image: denniske/aoe2companion-graphql:$COMMIT_SHA1
     restart: on-failure
     ports:
-      - 1000:80
+      - 4000:80
     environment:
       DATABASE_URL: '${DATABASE_URL}'
 
