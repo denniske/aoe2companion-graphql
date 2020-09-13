@@ -26,7 +26,7 @@ jobs:
 #        - sudo mv kubectl /usr/local/bin/
       script:
         - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
-        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_ci_rsa
+        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
         - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
         - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
         - ssh root@116.203.245.222 ls -al
