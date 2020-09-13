@@ -27,4 +27,5 @@ jobs:
       script:
         - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
         - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_ci_rsa
+        - echo $KNOWN_HOSTS > ~/.ssh/known_hosts
         - ssh root@116.203.245.222 ls -al
