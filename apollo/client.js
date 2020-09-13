@@ -168,8 +168,8 @@ function createIsomorphLink() {
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({
-      uri: process.env.NEXT_PUBLIC_API_URL,
-      // uri: process.env.NEXT_PUBLIC_API_URL, // + '/api',
+      uri: '/api',
+      // uri: process.env.NEXT_PUBLIC_API_URL,
       credentials: 'same-origin',
     })
   ]);
