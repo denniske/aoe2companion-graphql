@@ -195,6 +195,7 @@ export interface NexusGenFieldTypes {
     match: NexusGenRootTypes['Match']; // Match!
     matches: NexusGenRootTypes['MatchList']; // MatchList!
     profile: NexusGenRootTypes['Profile']; // Profile!
+    str: string; // String!
     temp: NexusGenRootTypes['Match'][]; // [Match!]!
     temp2: NexusGenRootTypes['Match'][]; // [Match!]!
   }

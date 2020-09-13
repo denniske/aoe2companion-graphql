@@ -1,7 +1,7 @@
 import {PrismaClient} from '@prisma/client'
 
 export const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn'],
+  // log: ['query', 'info', 'warn'],
 });
 
 prisma.$use(async (params, next) => {

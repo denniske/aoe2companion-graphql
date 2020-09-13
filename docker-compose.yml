@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: '2'
+services:
+  nginx:
+    image: valian/docker-nginx-auto-ssl
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl_data:/etc/resty-auto-ssl
+    environment:
+      ALLOWED_DOMAINS: 'preview.aoe2companion.com'
+      SITES: 'preview.aoe2companion.com=graphql:1000'
+
+  # your application, listening on port specified in `SITES` env variable
+  graphql:
+    image: denniske/aoe2companion-graphql:latest
+    restart: on-failure
+    ports:
+      - 1000:80
+    environment:
+      DATABASE_URL: '${DATABASE_URL}'
+
+volumes:
+  ssl_data:

@@ -84,8 +84,8 @@ async function getStats(leaderboardId: number, profileId: number) {
         GROUP BY civ
         ORDER BY games desc;
     `;
-    console.log('-----------');
-    console.log('match', civ);
+    // console.log('-----------');
+    // console.log('match', civ);
 
     return {
         leaderboard_id: leaderboardId,

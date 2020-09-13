@@ -5,6 +5,13 @@ import { matchWhereInput } from '@prisma/client';
 
 export const Query = queryType({
   definition(t) {
+    t.field('str', {
+      type: 'String',
+      resolve: (_, args) => {
+        return 'Hello World!';
+      },
+    })
+
     t.field('match', {
       type: 'Match',
       args: {

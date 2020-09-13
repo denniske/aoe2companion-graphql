@@ -164,10 +164,12 @@ const schema = makeExecutableSchema({
 
 function createIsomorphLink() {
   const { HttpLink } = require('apollo-link-http')
+  console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({
-      uri: '/api',
+      uri: process.env.NEXT_PUBLIC_API_URL,
+      // uri: process.env.NEXT_PUBLIC_API_URL, // + '/api',
       credentials: 'same-origin',
     })
   ]);

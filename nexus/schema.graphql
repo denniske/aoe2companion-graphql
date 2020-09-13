@@ -83,6 +83,7 @@ type Query {
   match(matchId: String!): Match!
   matches(count: Int!, leaderboard_id: Int, profile_id: Int, search: String, start: Int!): MatchList!
   profile(profile_id: Int): Profile!
+  str: String!
   temp: [Match!]!
   temp2: [Match!]!
 }
