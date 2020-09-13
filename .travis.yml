@@ -29,4 +29,6 @@ jobs:
         - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
         - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
         - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/id_rsa
         - ssh root@116.203.245.222 ls -al
